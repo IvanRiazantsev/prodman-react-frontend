@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01156867-01e3-42dc-9d57-37161d62e8fc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/service/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AuthService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/dashboard/HealthDashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/dashboard/MainDashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/dashboard/ProductivityDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProdmanApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProdmanApp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Dashboard.js" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,10 +26,15 @@
   </component>
   <component name="ProjectId" id="1TnvpHZTvvRAmlb0k0NiRKAKiSN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jss" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/dashboard" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -37,21 +45,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/dashboard" />
       <recent name="$PROJECT_DIR$/src/jss" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="npm.npm start">
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
@@ -68,6 +65,18 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -79,7 +88,9 @@
       <option name="presentableId" value="Default" />
       <updated>1574108854979</updated>
       <workItem from="1574108857527" duration="1930000" />
-      <workItem from="1575399953473" duration="30268000" />
+      <workItem from="1575399953473" duration="30758000" />
+      <workItem from="1576419193465" duration="598000" />
+      <workItem from="1576448390925" duration="7675000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1575434732776</created>
@@ -88,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575434732776</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="a">
+      <created>1575435342048</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1575435342048</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +126,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="a" />
     <option name="LAST_COMMIT_MESSAGE" value="a" />
   </component>

@@ -28,6 +28,16 @@ import {Modal} from 'react-bootstrap'
 import {Button} from '@material-ui/core'
 import * as UserService from '../../service/UserService'
 import {withRouter} from 'react-router-dom'
+import {Redirect, Route} from 'react-router-dom'
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import ListItemText from "@material-ui/core/ListItemText";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import WorkIcon from "@material-ui/icons/Work";
+import MainDashboard from "./MainDashboard";
+import HealthDashboard from "./HealthDashboard";
+import ProductivityDashboard from "./ProductivityDashboard";
 
 function Copyright() {
     return (
@@ -126,11 +136,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ProfileModal(props) {
-    const username = localStorage.getItem("username");
-    const firstName = localStorage.getItem("firstName");
-    const middleName = localStorage.getItem("middleName");
-    const lastName = localStorage.getItem("lastName");
-    const age = localStorage.getItem("age");
+    let username = localStorage.getItem("username");
+    let firstName = localStorage.getItem("firstName");
+    let middleName = localStorage.getItem("middleName");
+    let lastName = localStorage.getItem("lastName");
+    let age = localStorage.getItem("age");
+    if (username === "null") {
+        username = ''
+    }
+    if (firstName === "null") {
+        firstName = ''
+    }
+    if (middleName === 'null') {
+        middleName = ''
+    }
+    if (lastName === "null") {
+        lastName = ''
+    }
+    if (age === "null") {
+        age = ''
+    }
     return (
         <Modal
             {...props}
@@ -147,9 +172,9 @@ function ProfileModal(props) {
                 <div>
                     <h6><b>Username:</b> {username}</h6>
                     <h6><b>First Name:</b> {firstName}</h6>
-                    <h6><b>Middle Name:</b> {middleName}</h6>
+                    {/*<h6><b>Middle Name:</b> {middleName}</h6>*/}
                     <h6><b>Last Name:</b> {lastName}</h6>
-                    <h6><b>Age:</b> {age}</h6>
+                    {/*<h6><b>Age:</b> {age}</h6>*/}
                 </div>
             </Modal.Body>
             <Modal.Footer>
@@ -159,14 +184,13 @@ function ProfileModal(props) {
     );
 }
 
-function createData(time, amount) {
-    return {time, amount};
-}
+
 
 function Dashboard(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [modalShow, setModalShow] = React.useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -177,6 +201,7 @@ function Dashboard(props) {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
         <div className={classes.root}>
+            {localStorage.getItem("jwtToken") !== null ? '' : <Redirect to="/login"/>}
             <CssBaseline/>
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
@@ -231,53 +256,46 @@ function Dashboard(props) {
                     </IconButton>
                 </div>
                 <Divider/>
-                <List>{mainListItems}</List>
+                <List>
+                    <div>
+                        <ListItem button selected={selectedIndex === 0} onClick={() => {
+                            props.history.push("/");
+                            setSelectedIndex(0);
+                        }}>
+                            <ListItemIcon>
+                                <DashboardIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Dashboard"/>
+                        </ListItem>
+                        <ListItem button selected={selectedIndex === 1} onClick={() => {
+                            props.history.push("/health");
+                            setSelectedIndex(1);
+                        }}>
+                            <ListItemIcon>
+                                <FavoriteIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Health"/>
+                        </ListItem>
+                        <ListItem button selected={selectedIndex === 2} onClick={() => {
+                            props.history.push("/productivity");
+                            setSelectedIndex(2);
+                        }}>
+                            <ListItemIcon>
+                                <WorkIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Productivity"/>
+                        </ListItem>
+                    </div>
+                </List>
 
             </Drawer>
             <ProfileModal show={modalShow} onHide={() => setModalShow(false)}/>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        {/* Chart */}
-                        <Grid item xs={12}>
-                            <Paper className={fixedHeightPaper}>
-                                <Chart data={[
-                                    createData('00:00', 55),
-                                    createData('03:00', 58),
-                                    createData('06:00', 80),
-                                    createData('09:00', 65),
-                                    createData('12:00', 60),
-                                    createData('15:00', 90),
-                                    createData('18:00', 70),
-                                    createData('21:00', 60),
-                                    createData('24:00', undefined)
-                                ]} title="Today's pulse rate" axisY="BPM"/>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper className={fixedHeightPaper}>
-                                <Chart data={[
-                                    createData('09:00', 6),
-                                    createData('12:00', 8),
-                                    createData('15:00', 9),
-                                    createData('18:00', 5)
-                                ]} title="Today's productivity rate" axisY="index"/>
-                            </Paper>
-                        </Grid>
-                        {/* Recent Deposits */}
-                        {/*<Grid item xs={12} md={4} lg={3}>*/}
-                        {/*    <Paper className={fixedHeightPaper}>*/}
-                        {/*        <Deposits/>*/}
-                        {/*    </Paper>*/}
-                        {/*</Grid>*/}
-                        {/* Recent Orders */}
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper}>
-                                <Orders/>
-                            </Paper>
-                        </Grid>
-                    </Grid>
+                    <Route path={"/"} exact component={MainDashboard}/>
+                    <Route path={"/health"} exact component={HealthDashboard}/>
+                    <Route path={"/productivity"} exact component={ProductivityDashboard}/>
                     <Box pt={4}>
                         <Copyright/>
                     </Box>

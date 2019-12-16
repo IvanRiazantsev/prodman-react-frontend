@@ -19,7 +19,7 @@ class ProdmanApp extends React.Component {
             <div>
                 <ThemeProvider theme={this.myTheme}>
                     <BrowserRouter>
-                        <Route path="/" exact component={MainPage}/>
+                        <Route path={["/", "/health", "/productivity"]} exact component={MainPage}/>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/signup" exact component={SignUp}/>
                     </BrowserRouter>
