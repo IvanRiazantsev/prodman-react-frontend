@@ -38,6 +38,10 @@ import WorkIcon from "@material-ui/icons/Work";
 import MainDashboard from "./MainDashboard";
 import HealthDashboard from "./HealthDashboard";
 import ProductivityDashboard from "./ProductivityDashboard";
+import {FlagIcon} from "react-flag-kit";
+import switchLanguage from '../../service/i18nService';
+import i18n from '../../i18n'
+import {useTranslation} from "react-i18next";
 
 function Copyright() {
     return (
@@ -136,6 +140,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ProfileModal(props) {
+    const {t, i18n} = useTranslation();
     let username = localStorage.getItem("username");
     let firstName = localStorage.getItem("firstName");
     let middleName = localStorage.getItem("middleName");
@@ -165,25 +170,24 @@ function ProfileModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Profile
+                    {t("Profile")}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <h6><b>Username:</b> {username}</h6>
-                    <h6><b>First Name:</b> {firstName}</h6>
+                    <h6><b>{t("Username")}:</b> {username}</h6>
+                    <h6><b>{t("First name")}:</b> {firstName}</h6>
                     {/*<h6><b>Middle Name:</b> {middleName}</h6>*/}
-                    <h6><b>Last Name:</b> {lastName}</h6>
-                    {/*<h6><b>Age:</b> {age}</h6>*/}
+                    <h6><b>{t("Last name")}:</b> {lastName}</h6>
+                    <h6><b>{t("Age")}:</b> {age}</h6>
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={props.onHide}>{t("Close")}</Button>
             </Modal.Footer>
         </Modal>
     );
 }
-
 
 
 function Dashboard(props) {
@@ -191,6 +195,8 @@ function Dashboard(props) {
     const [open, setOpen] = React.useState(true);
     const [modalShow, setModalShow] = React.useState(false);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const {t, i18n} = useTranslation();
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -215,8 +221,15 @@ function Dashboard(props) {
                         <MenuIcon/>
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Dashboard
+                        {t("Dashboard")}
                     </Typography>
+                    <IconButton edge={"end"}
+                                className={clsx(classes.menuButton)}
+                                onClick={() => {
+                                    switchLanguage();
+                                }}>
+                        <FlagIcon code={i18n.language === 'en' ? 'US' : 'UA'} size={32}/>
+                    </IconButton>
                     <IconButton
                         edge="end"
                         color="inherit"
@@ -263,9 +276,9 @@ function Dashboard(props) {
                             setSelectedIndex(0);
                         }}>
                             <ListItemIcon>
-                                <DashboardIcon/>
+                                <DashboardIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Dashboard"/>
+                            <ListItemText primary={t("Dashboard")}/>
                         </ListItem>
                         <ListItem button selected={selectedIndex === 1} onClick={() => {
                             props.history.push("/health");
@@ -274,7 +287,7 @@ function Dashboard(props) {
                             <ListItemIcon>
                                 <FavoriteIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Health"/>
+                            <ListItemText primary={t("Health")}/>
                         </ListItem>
                         <ListItem button selected={selectedIndex === 2} onClick={() => {
                             props.history.push("/productivity");
@@ -283,7 +296,7 @@ function Dashboard(props) {
                             <ListItemIcon>
                                 <WorkIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Productivity"/>
+                            <ListItemText primary={t("Productivity")}/>
                         </ListItem>
                     </div>
                 </List>

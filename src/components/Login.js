@@ -14,6 +14,13 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import * as AuthService from '../service/AuthService'
 import * as UserService from '../service/UserService'
+import { useTranslation } from 'react-i18next';
+// import {IconButton} from "@material-ui/core";
+import {FlagIcon} from "react-flag-kit";
+import switchLanguage from '../service/i18nService';
+import i18n from '../i18n'
+import clsx from "clsx";
+import IconButton from "@material-ui/core/IconButton";
 
 function Copyright() {
     return (
@@ -47,9 +54,13 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(3, 0, 2),
         color: '#fff'
     },
+    language: {
+        margin: theme.spacing(2, 0, 2),
+    }
 }));
 
 export default function Login(props) {
+    const {t, i18n} = useTranslation();
     const classes = useStyles();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -61,7 +72,7 @@ export default function Login(props) {
                     <VpnKeyOutlined/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    {t('Sign In')}
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={(event) => {
                     event.preventDefault();
@@ -72,6 +83,7 @@ export default function Login(props) {
                         localStorage.setItem('jwtToken', res.token);
                         localStorage.setItem('userId', res.id);
                         UserService.getUser(res.id).then(res => {
+                            console.log(res);
                             localStorage.setItem('username', res.username);
                             localStorage.setItem('firstName', res.firstName);
                             localStorage.setItem('middleName', res.middleName);
@@ -80,7 +92,7 @@ export default function Login(props) {
                         });
                         props.history.push("/")
                     }).catch(error => {
-                        alert("Error occurred");
+                        alert(t('Error occurred'));
                     })
                 }}>
                     <TextField
@@ -89,7 +101,7 @@ export default function Login(props) {
                         required
                         fullWidth
                         id="email"
-                        label="Username"
+                        label={t('Username')}
                         name="username"
                         autoComplete="username"
                         autoFocus
@@ -101,25 +113,34 @@ export default function Login(props) {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label={t('Password')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
                         onChange={(event) => setPassword(event.target.value)}
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container justify="flex-end">
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={2}>
+                            <IconButton className={classes.language} onClick={() => switchLanguage()}>
+                                <FlagIcon code={i18n.language === 'en' ? 'US' : 'UA'} size={32}/>
+                            </IconButton>
+                        </Grid>
+                        <Grid item xs={12} sm={10}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                {t('Sign In')}
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid container justify={"flex-end"}>
                         <Grid item>
                             <Link href="" variant="body2" onClick={() => props.history.push("/signup")}>
-                                {"Don't have an account? Sign Up"}
+                                {t('No account')}
                             </Link>
                         </Grid>
                     </Grid>

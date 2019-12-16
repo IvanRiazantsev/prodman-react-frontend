@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
+import {useTranslation} from "react-i18next";
 
 // Generate Order Data
 function createData(id, date,office, averageProductivity, averageHealth) {
@@ -32,17 +33,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Orders() {
+    const {t, i18n} = useTranslation();
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title>History</Title>
+            <Title>{t("History")}</Title>
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Office</TableCell>
-                        <TableCell>Average productivity</TableCell>
-                        <TableCell>Average health status</TableCell>
+                        <TableCell>{t("Date")}</TableCell>
+                        <TableCell>{t("Office")}</TableCell>
+                        <TableCell>{t("Average productivity")}</TableCell>
+                        <TableCell>{t("Average health status")}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

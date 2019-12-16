@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01156867-01e3-42dc-9d57-37161d62e8fc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/dashboard/HealthDashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/dashboard/MainDashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/dashboard/ProductivityDashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/i18n.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/i18nService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProdmanApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProdmanApp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/MainDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/MainDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Orders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/AuthService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +41,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/dashboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -45,6 +55,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/img" />
       <recent name="$PROJECT_DIR$/src/components/dashboard" />
       <recent name="$PROJECT_DIR$/src/jss" />
       <recent name="$PROJECT_DIR$/src" />
@@ -91,6 +103,7 @@
       <workItem from="1575399953473" duration="30758000" />
       <workItem from="1576419193465" duration="598000" />
       <workItem from="1576448390925" duration="7675000" />
+      <workItem from="1576484054166" duration="14331000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1575434732776</created>
@@ -130,5 +143,23 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="a" />
     <option name="LAST_COMMIT_MESSAGE" value="a" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1895" height="286" key="GridCell.Tab.0.bottom" timestamp="1576490115334">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1895" height="286" key="GridCell.Tab.0.bottom/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1576490115334" />
+    <state width="1895" height="286" key="GridCell.Tab.0.center" timestamp="1576490115334">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1895" height="286" key="GridCell.Tab.0.center/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1576490115334" />
+    <state width="1895" height="286" key="GridCell.Tab.0.left" timestamp="1576490115334">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1895" height="286" key="GridCell.Tab.0.left/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1576490115334" />
+    <state width="1895" height="286" key="GridCell.Tab.0.right" timestamp="1576490115334">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1895" height="286" key="GridCell.Tab.0.right/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1576490115334" />
   </component>
 </project>

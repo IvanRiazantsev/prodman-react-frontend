@@ -11,6 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import * as AuthService from '../service/AuthService'
+import {useTranslation} from "react-i18next";
+import switchLanguage from "../service/i18nService";
+import {FlagIcon} from "react-flag-kit";
+import IconButton from "@material-ui/core/IconButton";
 
 function Copyright() {
     return (
@@ -44,6 +48,9 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(3, 0, 2),
         color: '#fff'
     },
+    language: {
+        margin: theme.spacing(2, 0, 2),
+    }
 }));
 
 export default function SignUp(props) {
@@ -54,6 +61,7 @@ export default function SignUp(props) {
     const [lastName, setLastName] = useState('');
     const [middleName, setMiddleName] = useState('');
     const [age, setAge] = useState('');
+    const {t, i18n} = useTranslation();
 
 
     return (
@@ -64,7 +72,7 @@ export default function SignUp(props) {
                     <VpnKeyOutlined/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign up
+                    {t("Sign Up")}
                 </Typography>
                 <form className={classes.form} onSubmit={(event) => {
                     event.preventDefault();
@@ -88,7 +96,7 @@ export default function SignUp(props) {
                                 fullWidth
                                 required
                                 id="username"
-                                label="Username"
+                                label={t("Username")}
                                 name="username"
                                 autoComplete="username"
                                 onChange={(event) => setUsername(event.target.value)}
@@ -102,8 +110,7 @@ export default function SignUp(props) {
                                 required
                                 fullWidth
                                 id="firstName"
-                                label="First Name"
-                                autoFocus
+                                label={t("First name")}
                                 onChange={(event) => setFirstName(event.target.value)}
                             />
                         </Grid>
@@ -113,7 +120,7 @@ export default function SignUp(props) {
                                 required
                                 fullWidth
                                 id="lastName"
-                                label="Last Name"
+                                label={t("Last name")}
                                 name="lastName"
                                 autoComplete="lname"
                                 onChange={(event) => setLastName(event.target.value)}
@@ -122,51 +129,59 @@ export default function SignUp(props) {
                         <Grid item xs={12} sm={8}>
                             <TextField
                                 variant="outlined"
-                                id="middleName"
-                                label="Middle Name"
-                                name="middleName"
-                                autoComplete="mname"
-                                onChange={(event) => setMiddleName(event.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                type="number"
-                                id="age"
-                                label="Age"
-                                name="age"
-                                autoComplete="age"
-                                onChange={(event) => setAge(event.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label={t("Password")}
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={(event) => setPassword(event.target.value)}
                             />
                         </Grid>
+                        {/*<Grid item xs={12} sm={8}>*/}
+                        {/*    <TextField*/}
+                        {/*        variant="outlined"*/}
+                        {/*        id="middleName"*/}
+                        {/*        label="Middle Name"*/}
+                        {/*        name="middleName"*/}
+                        {/*        autoComplete="mname"*/}
+                        {/*        onChange={(event) => setMiddleName(event.target.value)}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                variant="outlined"
+                                type="number"
+                                id="age"
+                                label={t("Age")}
+                                name="age"
+                                autoComplete="age"
+                                onChange={(event) => setAge(event.target.value)}
+                            />
+                        </Grid>
+
+                        <Grid xs={12} sm={2}>
+                            <IconButton className={classes.language} onClick={() => switchLanguage()}>
+                                <FlagIcon code={i18n.language === 'en' ? 'US' : 'UA'} size={32}/>
+                            </IconButton>
+                        </Grid>
+                        <Grid xs={12} sm={10}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                {t("Sign Up")}
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign Up
-                    </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link href="" variant="body2" onClick={() => props.history.push("/login")}>
-                                Already have an account? Sign in
+                                {t("Has account")}
                             </Link>
                         </Grid>
                     </Grid>

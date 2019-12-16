@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const AUTH_BASE_URL = `https://prodman-app.herokuapp.com/auth`;
+const AUTH_BASE_URL = `http://localhost:8080/auth`;
 
 export function signIn(requestModel) {
     return axios.post(`${AUTH_BASE_URL}/signin`, {
