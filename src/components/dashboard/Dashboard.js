@@ -42,6 +42,12 @@ import {FlagIcon} from "react-flag-kit";
 import switchLanguage from '../../service/i18nService';
 import i18n from '../../i18n'
 import {useTranslation} from "react-i18next";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import WatchOutlined from '@material-ui/icons/WatchOutlined'
+import SettingsOutlined from '@material-ui/icons/SettingsOutlined'
+import Wearable from "./iot/Wearable";
+import ServiceDevice from "./iot/ServiceDevice";
+
 
 function Copyright() {
     return (
@@ -56,7 +62,7 @@ function Copyright() {
     );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -276,7 +282,7 @@ function Dashboard(props) {
                             setSelectedIndex(0);
                         }}>
                             <ListItemIcon>
-                                <DashboardIcon />
+                                <DashboardIcon/>
                             </ListItemIcon>
                             <ListItemText primary={t("Dashboard")}/>
                         </ListItem>
@@ -298,6 +304,27 @@ function Dashboard(props) {
                             </ListItemIcon>
                             <ListItemText primary={t("Productivity")}/>
                         </ListItem>
+                        <Divider variant={"fullWidth"}/>
+                        <List subheader={<ListSubheader>IoT</ListSubheader>}>
+                            <ListItem button selected={selectedIndex === 3} onClick={() => {
+                                props.history.push("/iot/wearable");
+                                setSelectedIndex(3);
+                            }}>
+                                <ListItemIcon>
+                                    <WatchOutlined/>
+                                </ListItemIcon>
+                                <ListItemText primary={t("Wearable")}/>
+                            </ListItem>
+                            <ListItem button selected={selectedIndex === 4} onClick={() => {
+                                props.history.push("/iot/service");
+                                setSelectedIndex(4);
+                            }}>
+                                <ListItemIcon>
+                                    <SettingsOutlined/>
+                                </ListItemIcon>
+                                <ListItemText primary={t("Service Device")}/>
+                            </ListItem>
+                        </List>
                     </div>
                 </List>
 
@@ -309,6 +336,8 @@ function Dashboard(props) {
                     <Route path={"/"} exact component={MainDashboard}/>
                     <Route path={"/health"} exact component={HealthDashboard}/>
                     <Route path={"/productivity"} exact component={ProductivityDashboard}/>
+                    <Route path={"/iot/wearable"} exact component={Wearable}/>
+                    <Route path={"/iot/service"} exact component={ServiceDevice}/>
                     <Box pt={4}>
                         <Copyright/>
                     </Box>

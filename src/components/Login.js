@@ -83,7 +83,6 @@ export default function Login(props) {
                         localStorage.setItem('jwtToken', res.token);
                         localStorage.setItem('userId', res.id);
                         UserService.getUser(res.id).then(res => {
-                            console.log(res);
                             localStorage.setItem('username', res.username);
                             localStorage.setItem('firstName', res.firstName);
                             localStorage.setItem('middleName', res.middleName);

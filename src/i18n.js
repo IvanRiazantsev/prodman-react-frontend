@@ -28,7 +28,19 @@ const resources = {
             "Age": "Age",
             "Close": "Close",
             "BPM": "BPM",
-            "index": "index"
+            "index": "index",
+            "Diseases": "Diseases",
+            "Wearable": "Wearable device",
+            "Service Device": "Service device",
+            "Send health data": "Send health data",
+            "Send": "Send",
+            "Heart rate": "Heart rate",
+            "Mind activity": "Mind activity",
+            "Sugar": "Sugar",
+            "Diastolic Pressure": "Diastolic Pressure",
+            "Systolic Pressure": "Systolic Pressure",
+            "Temperature": "Temperature",
+            "Success": "Success"
         }
     },
     ua: {
@@ -57,7 +69,19 @@ const resources = {
             "Age": "Вік",
             "Close": "Закрити",
             "BPM": "Пульс",
-            "index": "індекс"
+            "index": "індекс",
+            "Diseases": "Захворювання",
+            "Wearable": "Портативний пристрій",
+            "Service Device": "Сервісний пристрій",
+            "Send health data": "Надіслати дані про здоров'я",
+            "Send": "Надіслати",
+            "Heart rate": "Пульс",
+            "Mind activity": "Розумова активність",
+            "Sugar": "Цукор",
+            "Diastolic Pressure": "Діастоличний тиск",
+            "Systolic Pressure": "Систолічний тиск",
+            "Temperature": "Температура",
+            "Success": "Успішно"
         }
     }
 };
