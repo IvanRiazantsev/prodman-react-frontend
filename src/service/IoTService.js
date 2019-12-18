@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const USER_BASE_URL = `http://localhost:8080/user`;
+const USER_BASE_URL = `https://prodman-frontend.herokuapp.com/user`;
 
 
 export function addUserHealth(id, health) {
