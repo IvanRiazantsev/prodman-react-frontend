@@ -82,6 +82,7 @@ export default function Login(props) {
                     }).then(res => {
                         localStorage.setItem('jwtToken', res.token);
                         localStorage.setItem('userId', res.id);
+                        localStorage.setItem('isAdmin', (res.role === 'ADMIN').toString());
                         UserService.getUser(res.id).then(res => {
                             localStorage.setItem('username', res.username);
                             localStorage.setItem('firstName', res.firstName);

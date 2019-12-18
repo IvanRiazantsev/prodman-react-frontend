@@ -47,6 +47,8 @@ import WatchOutlined from '@material-ui/icons/WatchOutlined'
 import SettingsOutlined from '@material-ui/icons/SettingsOutlined'
 import Wearable from "./iot/Wearable";
 import ServiceDevice from "./iot/ServiceDevice";
+import Business from '@material-ui/icons/Business'
+import Offices from "./Offices";
 
 
 function Copyright() {
@@ -304,20 +306,29 @@ function Dashboard(props) {
                             </ListItemIcon>
                             <ListItemText primary={t("Productivity")}/>
                         </ListItem>
+                        {localStorage.getItem("isAdmin") === 'true' ? <ListItem button selected={selectedIndex === 3} onClick={() => {
+                            props.history.push("/offices");
+                            setSelectedIndex(3);
+                        }}>
+                            <ListItemIcon>
+                                <Business/>
+                            </ListItemIcon>
+                            <ListItemText primary={t("Offices")}/>
+                        </ListItem> : ''}
                         <Divider variant={"fullWidth"}/>
                         <List subheader={<ListSubheader>IoT</ListSubheader>}>
-                            <ListItem button selected={selectedIndex === 3} onClick={() => {
+                            <ListItem button selected={selectedIndex === 4} onClick={() => {
                                 props.history.push("/iot/wearable");
-                                setSelectedIndex(3);
+                                setSelectedIndex(4);
                             }}>
                                 <ListItemIcon>
                                     <WatchOutlined/>
                                 </ListItemIcon>
                                 <ListItemText primary={t("Wearable")}/>
                             </ListItem>
-                            <ListItem button selected={selectedIndex === 4} onClick={() => {
+                            <ListItem button selected={selectedIndex === 5} onClick={() => {
                                 props.history.push("/iot/service");
-                                setSelectedIndex(4);
+                                setSelectedIndex(5);
                             }}>
                                 <ListItemIcon>
                                     <SettingsOutlined/>
@@ -336,6 +347,7 @@ function Dashboard(props) {
                     <Route path={"/"} exact component={MainDashboard}/>
                     <Route path={"/health"} exact component={HealthDashboard}/>
                     <Route path={"/productivity"} exact component={ProductivityDashboard}/>
+                    <Route path={"/offices"} exact component={Offices}/>
                     <Route path={"/iot/wearable"} exact component={Wearable}/>
                     <Route path={"/iot/service"} exact component={ServiceDevice}/>
                     <Box pt={4}>

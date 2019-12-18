@@ -35,6 +35,8 @@ export default function Wearable() {
     const [diastolicPressure, setDiastolicPressure] = useState();
     const [systolicPressure, setSystolicPressure] = useState();
     const [temperature, setTemperature] = useState();
+    const [date, setDate] = useState();
+    let cron;
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -44,13 +46,14 @@ export default function Wearable() {
                 </Typography>
                 <form className={classes.form} onSubmit={(event) => {
                     event.preventDefault();
-                    IoTService.setUserHealth(localStorage.getItem("userId"), {
+                    IoTService.addUserHealth(localStorage.getItem("userId"), {
                         heartRate: heartRate,
                         mindActivityLevel: mindActivity,
                         sugarLevel: sugar,
                         diastolicPressure: diastolicPressure,
                         systolicPressure: systolicPressure,
-                        temperature: temperature
+                        temperature: temperature,
+                        date: date
                     }).then(res => {
                         alert(t("Success"))
                     }).catch(error => {
@@ -77,7 +80,7 @@ export default function Wearable() {
                                 variant="outlined"
                                 fullWidth
                                 required
-                                inputProps={{ min: "1", max: "10", step: "1" }}
+                                inputProps={{min: "1", max: "10", step: "1"}}
                                 id="mindActivity"
                                 label={t("Mind activity")}
                                 name="mindActivity"
@@ -92,7 +95,7 @@ export default function Wearable() {
                                 variant="outlined"
                                 fullWidth
                                 required
-                                inputProps={{ step: "0.1" }}
+                                inputProps={{step: "0.1"}}
                                 id="sugar"
                                 label={t("Sugar")}
                                 name="sugar"
@@ -127,18 +130,32 @@ export default function Wearable() {
                                 onChange={(event) => setSystolicPressure(event.target.value)}
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 type={"number"}
                                 variant="outlined"
                                 fullWidth
                                 required
-                                inputProps={{ step: "0.1" }}
+                                inputProps={{step: "0.1"}}
                                 id="temperature"
                                 label={t("Temperature")}
                                 name="temperature"
                                 autoComplete="temperature"
                                 onChange={(event) => setTemperature(event.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                type={"date"}
+                                variant="outlined"
+                                fullWidth
+                                required
+                                id="date"
+                                InputLabelProps={{ shrink: true }}
+                                label={t("Date")}
+                                name="date"
+                                autoComplete="date"
+                                onChange={(event) => setDate(event.target.value)}
                             />
                         </Grid>
                         <Grid xs={12}>
@@ -151,6 +168,67 @@ export default function Wearable() {
                             >
                                 {t("Send")}
                             </Button>
+                        </Grid>
+                        <Grid container justify={"space-between"}>
+                            <Grid xs={12} sm={5}>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.submit}
+                                    onClick={() => {
+                                        const initTime = new Date();
+                                        initTime.setHours(0, 0, 0, 1);
+                                        let timeToSet = initTime;
+                                        const finalTime = new Date(initTime.getTime() + 86400000);
+                                        cron = setInterval(() => {
+                                            const heartRate = IoTService.getRandomIntInclusive(50, 170);
+                                            const mindActivity = IoTService.getRandomIntInclusive(1, 10);
+                                            const sugar = IoTService.getRandomArbitrary(3, 10).toFixed(1);
+                                            const diastolicPressure = IoTService.getRandomIntInclusive(70, 85);
+                                            const systolicPressure = IoTService.getRandomIntInclusive(110, 130);
+                                            const temperature = IoTService.getRandomArbitrary(35, 39).toFixed(1);
+                                            IoTService.addUserHealth(localStorage.getItem("userId"), {
+                                                heartRate: heartRate,
+                                                mindActivityLevel: mindActivity,
+                                                sugarLevel: sugar,
+                                                diastolicPressure: diastolicPressure,
+                                                systolicPressure: systolicPressure,
+                                                temperature: temperature,
+                                                date: timeToSet
+                                            }).then(res => {
+                                                console.log(t("Success"))
+                                            }).catch(error => {
+                                                console.log(t(`Error occurred: ${error}`))
+                                            });
+                                            //3600000  1800000
+                                            timeToSet = new Date(timeToSet.getTime() + 3600000);
+                                            if (timeToSet.getTime() >= finalTime.getTime()) {
+                                                clearInterval(cron)
+                                            }
+                                        }, 3000);
+                                        alert(t("Cron Job Started"))
+                                    }}
+                                >
+                                    {t("Start Cron")}
+                                </Button>
+                            </Grid>
+                            <Grid xs={12} sm={5}>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.submit}
+                                    onClick={() => {
+                                        clearInterval(cron);
+                                        alert(t("Cron Job Stopped"))
+                                    }}
+                                >
+                                    {t("Stop Cron")}
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </form>

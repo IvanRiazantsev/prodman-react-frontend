@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import {Modal} from "react-bootstrap";
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -34,10 +35,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
     },
 }));
-
-function createData(time, amount) {
-    return {time, amount};
-}
 
 function AddDiseaseModal(props) {
     const {t, i18n} = useTranslation();
@@ -81,8 +78,8 @@ function AddDiseaseModal(props) {
                             value={diseaseToAdd}
                             onChange={handleChange}
                         >
-                            {diseasesAbsent ? diseasesAbsent.map(disease => (
-                                <MenuItem value={disease.key}>{disease.name}</MenuItem>
+                            {diseasesAbsent ? diseasesAbsent.map((disease, index) => (
+                                <MenuItem key={index} value={disease.key}>{disease.name}</MenuItem>
                             )) : ''}
                         </Select>
                     </FormControl>
@@ -92,7 +89,7 @@ function AddDiseaseModal(props) {
                 <Button variant={"contained"} style={{color: 'white'}} color={"primary"} onClick={() => {
                     UserService.addDisease(parseInt(localStorage.getItem("userId")), diseaseToAdd).then(res => {
                         props.onHide();
-                        UserService.getUserHealth(parseInt(localStorage.getItem("userId"))).then(res => {
+                        UserService.getUser(parseInt(localStorage.getItem("userId"))).then(res => {
                             props.setDiseases(res.diseases.map(disease => {
                                 let name = disease.toLowerCase();
                                 name = name[0].toUpperCase() + name.slice(1);
@@ -126,9 +123,15 @@ export default function HealthDashboard(props) {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [diseases, setDiseases] = useState();
     const [modalShow, setModalShow] = React.useState(false);
+    const [heartRate, setHeartRate] = useState([]);
+    const [diastolicPressure, setDiastolicPressure] = useState([]);
+    const [systolicPressure, setSystolicPressure] = useState([]);
+    const [sugar, setSugar] = useState([]);
+    const [temperature, setTemperature] = useState([]);
+    const [mindActivity, setMindActivity] = useState([]);
 
     useEffect(effect => {
-        UserService.getUserHealth(parseInt(localStorage.getItem("userId"))).then(res => {
+        UserService.getUser(parseInt(localStorage.getItem("userId"))).then(res => {
             setDiseases(res.diseases.map(disease => {
                 let name = disease.toLowerCase();
                 name = name[0].toUpperCase() + name.slice(1);
@@ -137,7 +140,39 @@ export default function HealthDashboard(props) {
                 }
             }))
         });
-
+        UserService.getUserHealthToday(parseInt(localStorage.getItem("userId"))).then(res => {
+            console.log(res);
+            const heartRates = [];
+            const diastolicPressures = [];
+            const systolicPressures = [];
+            const sugars = [];
+            const temperatures = [];
+            const mindActivities = [];
+            res.forEach(health => {
+                let time = moment(health.date).format('kk:mm');
+                if (time === '24:00') {
+                    time = '00:00';
+                }
+                const heartRate = health.heartRate;
+                const diastolicPressure = health.diastolicPressure;
+                const systolicPressure = health.systolicPressure;
+                const sugar = health.sugarLevel;
+                const temperature = health.temperature;
+                const mindActivity = health.mindActivityLevel;
+                heartRates.push({time: time, amount: heartRate});
+                diastolicPressures.push({time: time, amount: diastolicPressure});
+                systolicPressures.push({time: time, amount: systolicPressure});
+                sugars.push({time: time, amount: sugar});
+                temperatures.push({time: time, amount: temperature});
+                mindActivities.push({time: time, amount: mindActivity});
+            });
+            setHeartRate(heartRates);
+            setDiastolicPressure(diastolicPressures);
+            setSystolicPressure(systolicPressures);
+            setSugar(sugars);
+            setTemperature(temperatures);
+            setMindActivity(mindActivities);
+        })
     }, []);
     return (
         <Grid container spacing={3}>
@@ -166,7 +201,7 @@ export default function HealthDashboard(props) {
                                 tooltip: t('Delete'),
                                 onClick: (event, rowData) => {
                                     UserService.deleteDisease(parseInt(localStorage.getItem("userId")), rowData.disease.toUpperCase()).then(res => {
-                                        UserService.getUserHealth(parseInt(localStorage.getItem("userId"))).then(res => {
+                                        UserService.getUser(parseInt(localStorage.getItem("userId"))).then(res => {
                                             setDiseases(res.diseases.map(disease => {
                                                 let name = disease.toLowerCase();
                                                 name = name[0].toUpperCase() + name.slice(1);
@@ -216,62 +251,32 @@ export default function HealthDashboard(props) {
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Paper className={fixedHeightPaper}>
-                    <Chart data={[
-                        createData('09:00', 6),
-                        createData('12:00', 8),
-                        createData('15:00', 9),
-                        createData('18:00', 5)
-                    ]} title={t("Today's pulse rate")} axisY={t("BPM")}/>
+                    <Chart data={heartRate} title={t("Today's pulse rate")} axisY={t("BPM")}/>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Paper className={fixedHeightPaper}>
-                    <Chart data={[
-                        createData('09:00', 6),
-                        createData('12:00', 8),
-                        createData('15:00', 9),
-                        createData('18:00', 5)
-                    ]} title={t("Today's diastolic pressure")} axisY={t("pressureMMhg")}/>
+                    <Chart data={diastolicPressure} title={t("Today's diastolic pressure")} axisY={t("pressureMMhg")}/>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Paper className={fixedHeightPaper}>
-                    <Chart data={[
-                        createData('09:00', 6),
-                        createData('12:00', 8),
-                        createData('15:00', 9),
-                        createData('18:00', 5)
-                    ]} title={t("Today's systolic pressure")} axisY={t("pressureMMhg")}/>
+                    <Chart data={systolicPressure} title={t("Today's systolic pressure")} axisY={t("pressureMMhg")}/>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Paper className={fixedHeightPaper}>
-                    <Chart data={[
-                        createData('09:00', 6),
-                        createData('12:00', 8),
-                        createData('15:00', 9),
-                        createData('18:00', 5)
-                    ]} title={t("Today's sugar level")} axisY={t("index")}/>
+                    <Chart data={sugar} title={t("Today's sugar level")} axisY={t("sugarMeasurement")}/>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Paper className={fixedHeightPaper}>
-                    <Chart data={[
-                        createData('09:00', 6),
-                        createData('12:00', 8),
-                        createData('15:00', 9),
-                        createData('18:00', 5)
-                    ]} title={t("Today's temperature")} axisY={t("index")}/>
+                    <Chart data={temperature} title={t("Today's temperature")} axisY={"℃"}/>
                 </Paper>
             </Grid>
             <Grid item xs={12}>
                 <Paper className={fixedHeightPaper}>
-                    <Chart data={[
-                        createData('09:00', 6),
-                        createData('12:00', 8),
-                        createData('15:00', 9),
-                        createData('18:00', 5)
-                    ]} title={t("Today's mind activity")} axisY={t("index")}/>
+                    <Chart data={mindActivity} title={t("Today's mind activity")} axisY={t("index")}/>
                 </Paper>
             </Grid>
         </Grid>

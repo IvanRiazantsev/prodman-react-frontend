@@ -3,15 +3,15 @@ import axios from 'axios'
 const USER_BASE_URL = `http://localhost:8080/user`;
 
 export function getUser(id) {
-    return axios.get(`${USER_BASE_URL}/${id}`, {
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem('jwtToken')
-        }
-    }).then(res => res.data);
+    return axios.get(`${USER_BASE_URL}/${id}`).then(res => res.data);
 }
 
 export function getUserHealth(id) {
     return axios.get(`${USER_BASE_URL}/health/${id}`).then(res => res.data);
+}
+
+export function getUserHealthToday(id) {
+    return axios.get(`${USER_BASE_URL}/health/${id}/today`).then(res => res.data)
 }
 
 export function getUnselectedDiseases(id) {
@@ -25,4 +25,13 @@ export function deleteDisease(id, disease) {
 
 export function addDisease(id, disease) {
     return axios.put(`${USER_BASE_URL}/health/${id}/${disease}`).then(res => res.data);
+}
+
+export function addUserHealth(id, health) {
+    return axios.post(`${USER_BASE_URL}/health/${id}`, health).then(res => res.data);
+}
+
+export function getUserProductivity(id) {
+    return axios.get(`${USER_BASE_URL}/productivity/${id}`).then(res => res.data);
+
 }

@@ -33,7 +33,7 @@ export default function Chart(props) {
                         top: 16,
                         right: 16,
                         bottom: 0,
-                        left: 24,
+                        left: 40,
                     }}
                 >
                     <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
