@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_OFFICES_URL = `http://localhost:8080/office`;
+const BASE_OFFICES_URL = `https://prodman-frontend.herokuapp.com/office`;
 
 export function getOffices() {
     return axios.get(BASE_OFFICES_URL).then(res => res.data);
